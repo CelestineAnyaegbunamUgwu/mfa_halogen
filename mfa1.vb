@@ -10,7 +10,7 @@ Imports System.Data.SqlClient
 Imports System.Data.OleDb
 Imports System.Drawing
 Imports System.Math
-'Imports Dundas.Charting.WebControl
+
 Imports System.Net.Mail
 
 
@@ -59,11 +59,7 @@ Public Class mfa1
                        "Initial Catalog=fsmshalogen;" &
                                "User ID=fsmshalogen;" &
                                "Password=fsmshalogen_9fsmshalogen_9;"
-        'str = "Data Source=" & ".\SQLEXPRESS; " &
-        '                               "Initial Catalog=fsmsPBI;" &
-        '                                       "User ID=ebere;" &
-        '                                       "Password=ebere;"
-
+        
 
         If Not Current.Session.Item("Username") Is Nothing Then
             USerName = CType(Current.Session("Username"), String)
@@ -94,12 +90,7 @@ Public Class mfa1
                         "Initial Catalog=fsmshalogen;" &
                                "User ID=fsmshalogen;" &
                                "Password=fsmshalogen_9fsmshalogen_9;"
-        'str = "Data Source=" & ".\SQLEXPRESS; " &
-        '                               "Initial Catalog=fsmsPBI;" &
-        '                                       "User ID=ebere;" &
-        '                                       "Password=ebere;"
-
-
+       
 
 
 
