@@ -10,7 +10,7 @@ Imports System.Data.SqlClient
 Imports System.Data.OleDb
 Imports System.Drawing
 Imports System.Math
-
+'Imports Dundas.Charting.WebControl
 Imports System.Net.Mail
 
 
@@ -59,7 +59,11 @@ Public Class mfa1
                        "Initial Catalog=fsmshalogen;" &
                                "User ID=fsmshalogen;" &
                                "Password=fsmshalogen_9fsmshalogen_9;"
-        
+        'str = "Data Source=" & ".\SQLEXPRESS; " &
+        '                               "Initial Catalog=fsmsPBI;" &
+        '                                       "User ID=ebere;" &
+        '                                       "Password=ebere;"
+
 
         If Not Current.Session.Item("Username") Is Nothing Then
             USerName = CType(Current.Session("Username"), String)
@@ -90,7 +94,12 @@ Public Class mfa1
                         "Initial Catalog=fsmshalogen;" &
                                "User ID=fsmshalogen;" &
                                "Password=fsmshalogen_9fsmshalogen_9;"
-       
+        'str = "Data Source=" & ".\SQLEXPRESS; " &
+        '                               "Initial Catalog=fsmsPBI;" &
+        '                                       "User ID=ebere;" &
+        '                                       "Password=ebere;"
+
+
 
 
 
@@ -873,10 +882,12 @@ Public Class mfa1
             If ReturnCheckCondition("cmstblJohn", "Username", " where username='" & username & "'") = False Then
 
                 Dept = ReturnCondition("cmstbllog", "Dept", " Where Username='" & username & "'" & AndBranchCode)
-                Dim xFields As String = "UserName,Dept,Activities,BranchCode"
+                Dim xFields As String = "UserName,Dept,Activities,Device,IPAddress,BranchCode"
                 Dim xTexts As String = "'" & username & "'," &
                  "'" & Dept & "'," &
                   "'" & Expr & "'," &
+                   "'" & mypc & "'," &
+                    "'" & cuIP & "'," &
                    "'" & branchCode & "'"
                 'DH & Now.Date & DH + "," & _
                 ' DH & Now & DH
@@ -1227,7 +1238,8 @@ Public Class mfa1
             'Dim url As String = "https://secure.xwireless.net/api/v2/SendSMS?ApiKey=bridgetM_9&ClientId=Anyaegbunam20&SenderId=" & Subject & "&Message=" & SmsBody & " &MobileNumber=" & toPhoneNumber & ""
             'NOTE: Phone numbers must be like this 2348184253622
 
-            Dim url As String = "https://secure.xwireless.net/api/v2/SendSMS?SenderId=IMPORTANT&Is_Unicode=false&Is_Flash=false&Message=" & SmsBody & "&MobileNumbers=" & toPhoneNumber & "&ApiKey=fkeWD8O+6xnVkek7el41afcnm05PylIEL8kGj8Xmir8=&ClientId=7d319d2d-7002-4c6f-b40f-905c6c4c89f8"
+            Dim url As String = "https://secure.xwireless.net/api/v2/SendSMS?SenderId=HALOGEN&Is_Unicode=false&Is_Flash=false&Message=" & SmsBody & "&MobileNumbers=" & toPhoneNumber & "&ApiKey=fkeWD8O+6xnVkek7el41afcnm05PylIEL8kGj8Xmir8=&ClientId=7d319d2d-7002-4c6f-b40f-905c6c4c89f8"
+            'Dim url As String = "https://secure.xwireless.net/api/v2/SendSMS?SenderId=" & sendIdentity & "&Is_Unicode=false&Is_Flash=false&Message=" & SmsBody & "&MobileNumbers=" & toPhoneNumber & "&ApiKey=fkeWD8O+6xnVkek7el41afcnm05PylIEL8kGj8Xmir8=&ClientId=7d319d2d-7002-4c6f-b40f-905c6c4c89f8"
 
             webrequest = Net.HttpWebRequest.Create(url)
             webrequest.Timeout = 25000

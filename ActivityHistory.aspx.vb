@@ -1,4 +1,4 @@
-﻿Public Class AuthenticationHistory
+﻿Public Class ActivityHistory
     Inherits System.Web.UI.Page
 
     Dim le As New mfa1
@@ -22,10 +22,10 @@
     Private Sub srcDelete()
         'Try
         '' Dim xFields As String = "[ID],[Drug] as [DISPENSED DRUGS],[Qty] as [QTY],[UNIT],[ARID],[SalesID] as [DSP ID],[Sprice] as [UNIT PRICE (N)],(Qty * Sprice) as [PRICE (N)]"
-        Dim xFields As String = "Id as [Id], Username as [User Name], nTime as [Date Time],emailCode as [Sent Code],Device as [Device Used],LocationIP as [ISP IP],Browser,BranchCode as [Branch],Status"
+        Dim xFields As String = "Id as [Id], Username as [User Name], Activities as [Action Performed], Recordtime  as [Date Time of Action],(select fullname from cmstbllog where username=cmstblactivity.username) as [Full Name],Device as [Device Used],IPAddress as [ISP IP],BranchCode as [Branch]"
 
         'le.AndCondition =le.WhereBranchCode
-        le.DT = le.ReportSelectedDataTable("tblfma", xFields, " where BranchCode='" & CType(Session("BranchCode"), String) & "'")
+        le.DT = le.ReportSelectedDataTable("cmstblActivity", xFields, " where BranchCode='" & CType(Session("BranchCode"), String) & "' order by recordtime desc")
         Me.GridUser.DataSource = le.DT
         Me.GridUser.DataBind()
 
@@ -42,10 +42,10 @@
             Dim procid As String
             Dim row As GridViewRow = Me.GridUser.SelectedRow
             procid = row.Cells(1).Text
-            le.ReturnDelete("tblfma", " where id=" & CInt(procid))
-            srcDelete()
-            le.ActivityANDEmailLog("Deleted Authentication History at " + le.BranchCode)
+            le.ReturnDelete("cmstblActivity", " where id=" & CInt(procid))
 
+            le.ActivityANDEmailLog("Deleted Activities History at " + le.BranchCode)
+            srcDelete()
         Catch ex As Exception
 
         End Try
@@ -65,10 +65,10 @@
                 Exit Sub
 
             Else
-                le.ReturnDelete("tblfma", " where BranchCode='" & le.BranchCode & "'" + le.AnddCode)
-                Me.srcDelete()
-                le.ActivityANDEmailLog("Deleted all authenications  for " + le.BranchCode)
+                le.ReturnDelete("cmstblActivity", " where BranchCode='" & le.BranchCode & "'")
 
+                le.ActivityANDEmailLog("Deleted all activities histories  for " + le.BranchCode)
+                Me.srcDelete()
             End If
         Catch ex As Exception
             le.forceclosedatabase()

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="vb" AutoEventWireup="false" Debug ="true"  CodeFile="Accessdenied.aspx.vb" Inherits="Accessdenied" %>
+﻿<%@ Page Language="vb" AutoEventWireup="false" Debug ="true"  CodeFile="ActivityHistory.aspx.vb" Inherits="ActivityHistory" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -8,7 +8,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>S3 Access denied</title>
+  <title>S3 Activities History</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -63,10 +63,7 @@
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="active" href="aboutintranet.aspx">Home</a></li><li>
-              <a href="changepassword.aspx">Change Password</a>
-
-                                                                       </li>
+          <li><a class="active" href="aboutintranet.aspx">Home</a></li><li><a href="changepassword.aspx">Change Password</a></li>
          <li class="dropdown"><a href="#"><span>Tools</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
               <li><a href="manageapps.aspx">Add/Remove Software</a></li>
@@ -135,38 +132,48 @@
           
             <ol class="breadcrumb">
               <li><i class="bi bi-home"></i><a href="aboutintranet.aspx">Home  </a></li>
-              <li><i class="fa fa-bars"></i>  - Access Denied</li>
+              <li><i class="fa fa-bars"></i>  -Activities History</li>
             
             </ol>
           </div>
         </div>
+<ol class="breadcrumbs">
     <div class="col-lg-12" style ="height :100%">
                    
          <div class="panel panel-default" style ="height :100%" >
-                      
-                      
+                       <%-- <div align="center" class="panel-heading" style="background-color:white; color:gray; font-size:smaller ">
+                           
+                        </div>--%>
+                        <div class="panel-body" style ="height :100%" >
                             <div class="row" style ="height :100%" >
-                                <div class="col-lg-4" style ="height :100%" >
-                                        </div>
                                 
-                                <div align="center" class="col-lg-4">
-                                    <h3>Access Denied</h3>
-                                                                 <asp:Image ID="Image1" class="img-responsive" runat="server" ImageUrl="~/myimage/accessdenied.jpg"></asp:Image>
+                               
+                                   
+                                        <h4 >
+                                       
+                                        <asp:GridView ID="GridUser" class="table table-striped table-bordered table-hover" runat="server" Font-Size="Small" AutoGenerateSelectButton="false" Font-Bold="True">
+                                           <Columns>
+                                       <asp:CommandField ButtonType="link" SelectText='<i class="fa fa-trash"></i> Delete' ShowHeader="True" ShowSelectButton="True" ItemStyle-Font-Bold="" ItemStyle-Font-Size="8" ItemStyle-ForeColor="midnightblue" />
 
-                                </div>
-                               <div class="col-lg-4">
+</Columns>
+                                            </asp:GridView>
+                                        
+                                        <asp:Button ID="BtnDelete" runat="server" CssClass="btn btn-secondary" Text="Clear all"></asp:Button>
+                                        </h4>
+                                   
+                                        
                                     
-                                </div>
-                                  <!-- /.col-lg-6 (nested) -->
-                            
+                                        
+                                    
+                             
                             </div>
                             <!-- /.row (nested) --></div>
                         <!-- /.panel-body --></div>
                     <!-- /.panel --></div>
-    
+    </ol>
     
             
-     
+      </div> 
     </section><!-- End Featured Section -->
 
     <!-- ======= About Section ======= -->
@@ -209,6 +216,3 @@
 </body>
 
 </html>
-    
-
-

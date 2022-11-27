@@ -71,7 +71,7 @@
                 <ul>
                  
                     <li><a href="managesettings.aspx">Email & MFA Validations </a></li><li><a href="AuthenticationHistory.aspx">MFA Validations History </a></li>
-                    <li><a href="manageroles.aspx">User Roles Management</a></li>
+                    <li><a href="ActivityHistory.aspx">Activities History</a></li><li><a href="manageroles.aspx">User Roles Management</a></li>
                   
                   
                 </ul>
