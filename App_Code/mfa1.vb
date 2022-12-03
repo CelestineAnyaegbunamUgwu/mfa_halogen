@@ -1129,38 +1129,49 @@ Public Class mfa1
     End Function
     Public Function IsMFARequired(ByVal Username As String, ByVal BranchCode As String) As Boolean
 
-        IsMFARequired = True
-
-        'check last login
-
-        'No of hours set
-        Dim mfahours As Integer
-        mfahours = ReturnFromQuery("select mfaLastloginTime from cmstblcoy where BranchCode='" & BranchCode & "'")
-
-        'No of minutes to wait set
-        Dim mfaminutes As Integer
-        mfaminutes = ReturnFromQuery("select mfaResponseTime from cmstblcoy where BranchCode='" & BranchCode & "'")
-
-        'when was the last login date
-        'get the current date
-        Dim cuDate As Date = Now.Date
-
-        'get current device
-        Dim cuDevice As String = mypc
-        'get current browser
-        Dim cuBrowser = HttpContext.Current.Request.Browser.Browser
-        'get current IP
 
 
-        If DateDiff(DateInterval.Hour, userlastlogindate(Username), cuDate) < mfahours And userlastBrowswer(Username) = cuBrowser And userlastDevice(Username) = cuDevice And userlastIP(Username) = cuIP Then
+        'Check if EnableMFA-yes for this branch
 
-            IsMFARequired = False
-        Else
+        If ReturnCheckCondition("cmstblCoy", "EnableMFA", " Where EnableMFA='Yes' and BranchCode='" & BranchCode & "'") = True Then
+            'go ahead and check if he requires MFA based on other factors
+
             IsMFARequired = True
+            'check last login
+
+            'No of hours set
+            Dim mfahours As Integer
+            mfahours = ReturnFromQuery("select mfaLastloginTime from cmstblcoy where BranchCode='" & BranchCode & "'")
+
+            'No of minutes to wait set
+            Dim mfaminutes As Integer
+            mfaminutes = ReturnFromQuery("select mfaResponseTime from cmstblcoy where BranchCode='" & BranchCode & "'")
+
+            'when was the last login date
+            'get the current date
+            Dim cuDate As Date = Now.Date
+
+            'get current device
+            Dim cuDevice As String = mypc
+            'get current browser
+            Dim cuBrowser = HttpContext.Current.Request.Browser.Browser
+            'get current IP
+
+
+            If DateDiff(DateInterval.Hour, userlastlogindate(Username), cuDate) < mfahours And userlastBrowswer(Username) = cuBrowser And userlastDevice(Username) = cuDevice And userlastIP(Username) = cuIP Then
+
+                IsMFARequired = False
+            Else
+                IsMFARequired = True
+            End If
+
+            Return IsMFARequired
+
+
+        Else
+            IsMFARequired = False
+            Return IsMFARequired
         End If
-        Return IsMFARequired
-
-
     End Function
 
 
