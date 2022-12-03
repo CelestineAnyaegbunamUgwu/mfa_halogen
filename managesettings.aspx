@@ -71,7 +71,7 @@
                 <ul>
                  
                     <li><a href="managesettings.aspx">Email & MFA Validations </a></li><li><a href="AuthenticationHistory.aspx">MFA Validations History </a></li>
-                    <li><a href="manageroles.aspx">User Roles Management</a></li>
+                    <li><a href="ActivityHistory.aspx">Activities History</a></li><li><a href="manageroles.aspx">User Roles Management</a></li>
                   
                   
                 </ul>
@@ -147,25 +147,32 @@
                             <div class="row" style ="height :100%" >
                                 <div class="col-md-6" style ="height :100%" >
                                <%-- <div class="form-group">--%>
+                                    <hr />
    <h5 class ="breadcrumb ">
        <asp:CheckBox ID="CheckEmail" runat="server" AutoPostBack="true" Text="Allow Users Activity Emailing" />
        <h6>If this is allowed, all activities logging will be sent to the designated emails (Recipient Emailing List) as found under Mailing Credentials</h6>
           <a class="btn btn-secondary btn-sm" style ="width :" href="javascript:;" data-bs-toggle="modal" data-bs-backdrop="static" data-bs-keyboard="false" data-bs-target="#act" ><i class="fa fa-cogs"></i> Mailing Credetials</a>
       
-    </h5> <br /><br />
+    </h5> <hr />
 
                                     <h5 class ="breadcrumb ">
                                             <asp:CheckBox ID="CheckAct" runat="server" AutoPostBack="true" Text="Allow Users Activities Logging" /></h5>
                                         <h6>When checked, all users activities logs in this application will be saved, and can be recalled anytime for security and auditing purposes.</h6>
                                         
-                                     
+                                    <hr />
+
+                                    <h5 class ="breadcrumb ">
+                                            <asp:CheckBox ID="Checkmfa" runat="server" AutoPostBack="true" Text="Activate Multi-Factor Authentication" /></h5>
+                                        <h6>When checked, multi-factor authentication will be activated for multi-level security purposes.</h6>
+                                        
+                                      
                                      
                                         
                                 </div>
                                 <!-- /.col-lg-6 (nested) --><div class="col-md-6">
                                    
                                         <fieldset >
-
+                                            <hr />
                                              <h5 class ="breadcrumb">
                                         No-login to enforce MFA in (HOURS)
    <h6>
@@ -182,9 +189,9 @@
 
     
     </div>
-  </div><br />
+  </div>
                                      </h5>
-
+<hr />
                                              <h5 class ="breadcrumb">
                                          MFA code response time wait (MINUTES).
    <h6>
@@ -208,7 +215,7 @@
                                           
                                             
 
-                                    <br />
+                                  
                                         </fieldset>
                                    
                                         

@@ -32,12 +32,20 @@
         Else
             Me.CheckEmail.Checked = False
         End If
+
+        'enable activity history
         If le.ReturnCheckCondition("cmstblCoy", "EnableActivity", " where EnableActivity='Yes'" + le.AndBranchCode) = True Then
             Me.CheckAct.Checked = True
         Else
             Me.CheckAct.Checked = False
         End If
 
+        'Activate MFA
+        If le.ReturnCheckCondition("cmstblCoy", "EnableMFA", " where EnableMFA='Yes'" + le.AndBranchCode) = True Then
+            Me.Checkmfa.Checked = True
+        Else
+            Me.Checkmfa.Checked = False
+        End If
 
         txtNologin.Text = le.ReturnCondition("cmstblCoy", "mfaLastloginTime", le.WhereBranchCode)
         txtresponse.Text = le.ReturnCondition("cmstblCoy", "mfaResponseTime", le.WhereBranchCode)
@@ -69,6 +77,7 @@
         'Me.BtnDelete.Visible = False
         Me.CheckEmail.Checked = False
         Me.CheckAct.Checked = False
+        Me.Checkmfa.Checked = False
     End Sub
     Private Sub Updated()
         Try
@@ -171,6 +180,30 @@
         End Try
     End Sub
 
+
+    Protected Sub Checkmfa_CheckedChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles Checkmfa.CheckedChanged
+        Try
+
+
+            Dim y As String
+
+            If Me.Checkmfa.Checked = True Then
+                y = "Yes"
+            Else
+                y = "No"
+            End If
+            le.AndCondition = ""
+
+            Dim xTexts As String = " [EnableMFA] = '" & y & "'"
+
+            le.UpdateData("cmstblCoy", xTexts, le.WhereBranchCode)
+            'le.lmsg = "Updated Successfully!"
+            Me.loadCred()
+            'ClientScript.RegisterStartupScript(Me.GetType(), "AlertMessageBox", "alert('" & le.lmsg.ToString & "');", True)
+        Catch ex As Exception
+            le.forceclosedatabase()
+        End Try
+    End Sub
     Private Sub btnNologi_Click(sender As Object, e As EventArgs) Handles btnNologi.Click
         If Val(txtNologin.Text) > 0 Then
             le.UpdateData("cmstblCoy", "mfaLastloginTime=" & txtNologin.Text, le.WhereBranchCode)
