@@ -74,6 +74,9 @@ asd:
         'le.DH & Now & le.DH
         le.InsertData("cmstblCoy", xFields, xTexts)
 
+        Session.Remove("BranchCode")
+        Session("BranchCode") = lblARID.Text
+
         ' Me.RegCanBranch()
         le.ActivityANDEmailLog("Registered a new  branch  called " + Me.txtcompanyname.Text)
         Me.srcDelete()
